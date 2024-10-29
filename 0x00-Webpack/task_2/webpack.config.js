@@ -23,6 +23,7 @@ module.exports = {
       {
         test: /\.(jpg|jpeg|png|gif|svg)$/i, // Optimize images
         use: [
+          "file-loader",
           {
             loader: 'image-webpack-loader',
             options: {
