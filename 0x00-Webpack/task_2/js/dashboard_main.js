@@ -1,3 +1,4 @@
+import '../css/main.css';
 import $ from "jquery";
 import _ from "lodash";
 
@@ -15,7 +16,7 @@ $(document).ready(() => {
     p4.text(`${count} clicks on the button`);
   }
 
-  const debouncedClick = _.debounce(updateCounter, 300);
+  const debouncedClick = _.debounce(updateCounter, 500);
 
   btn.on('click', debouncedClick);
 
