@@ -7,8 +7,7 @@
 }
 
 #count {
-  position: absolute;
-  top: 270px;
-  left: 200px;
+  display: inline;
   font-weight: bold;
+  margin: 0;
 }
