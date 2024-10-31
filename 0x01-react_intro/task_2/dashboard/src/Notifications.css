@@ -3,3 +3,25 @@
   border: 1px dotted #c24f4f;
   padding: 2em 0;
 }
+
+.Notifications li[data-priority="default"] {
+  color: blue;
+}
+
+.Notifications li[data-priority="urgent"] {
+  color: red;
+}
+
+.Notifications li:last-child {
+  color: red;
+}
+
+.Close-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.Close-icon {
+  width: 20px;
+}
