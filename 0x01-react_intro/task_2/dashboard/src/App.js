@@ -11,6 +11,14 @@ function App() {
       </header>
       <div className="App-body">
         <p>Login to access the full dashboard</p>
+
+        <label htmlFor="emial">Email:</label>
+        <input type="text" id="email" name="email" ></input>
+
+        <label htmlFor="password">Password:</label>
+        <input type="password" id="email" name="password" ></input>
+
+        <button type="button">OK</button>
       </div>
       <footer className='App-footer '>
         Copyright {getFullYear()} - {getFooterCopy(true)}
