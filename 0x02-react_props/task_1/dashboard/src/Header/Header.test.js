@@ -3,10 +3,20 @@ import {render, screen} from '@testing-library/react';
 
 
 describe('Header component', () => {
-  test('renders a div with the class App-header', () => {
+  beforeEach(() => {
     render(<Header />);
+  });
+
+  test('renders a div with the class App-header', () => {
     const headerElement = screen.getByRole('banner');
     expect(headerElement).toHaveClass('App-header');
   });
 
+  test('renders img and h1 tags in Header component', () => {
+    const img = screen.getByRole('img');
+    expect(img).toBeInTheDocument();
+
+    const heading = screen.getByRole('heading', {level: 1});
+    expect(heading).toBeInTheDocument();
+  });
 });
