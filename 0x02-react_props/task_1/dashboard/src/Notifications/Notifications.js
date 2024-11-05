@@ -5,7 +5,7 @@ import closeIcon from "../assets/close-icon.png";
 
 const Notifications = () => {
   return (
-    <div className="Notifications">
+    <div className="Notifications" data-testid="Notifications">
       <button
         className="Close-btn"
         aria-label="Close"
