@@ -9,7 +9,7 @@ const App = () => {
   return (
     <React.Fragment>
       <Notifications />
-      <div className="App">
+      <div className="App" data-testid="App">
         <Header />
         <Login />
         <Footer />
