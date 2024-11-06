@@ -4,15 +4,12 @@
   padding: 2em 0;
 }
 
-.Notifications li[data-priority="default"] {
+[data-notification-type="default"] {
   color: blue;
 }
 
-.Notifications li[data-priority="urgent"] {
-  color: red;
-}
-
-.Notifications li:last-child {
+[data-urgent],
+[data-notification-type="urgent"] {
   color: red;
 }
 
