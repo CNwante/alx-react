@@ -7,10 +7,10 @@ describe('Notifications component', () => {
     render(<Notifications />);
   });
 
-  test('renders three list items', () => {
+  test('renders NotificationItem elements', () => {
     render(<Notifications />);
-    const listItems = screen.getAllByRole('listitem');
-    expect(listItems.length).toBe(3);
+    const notificationItems = screen.getAllByRole('listitem');
+    expect(notificationItems).toHaveLength(3);
   });
 
   test('renders the correct notification text', () => {
