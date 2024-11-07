@@ -2,7 +2,7 @@ import './Login.css';
 
 const Login = () => {
   return (
-    <main className="Login-body">
+    <main className="Login-body" data-testid="Login">
       <p>Login to access the full dashboard</p>
 
       <label htmlFor="email">Email:</label>
