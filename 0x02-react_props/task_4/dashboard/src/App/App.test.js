@@ -1,35 +1,47 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from './App';
 
 describe('App component', () => {
-  beforeEach(() => {
-    // Render the App component before each test
-    render(<App />);
-  });
-
   test('renders without crashing', () => {
+    render(<App />);
     const divAppElement = screen.getByTestId('App');
     expect(divAppElement).toBeInTheDocument();
   });
 
   test('contains the Notifications component', () => {
-    const Notifications = screen.getByTestId('Notifications');
-    expect(Notifications).toBeInTheDocument();
+    render(<App />);
+    const notifications = screen.getByTestId('Notifications');
+    expect(notifications).toBeInTheDocument();
   });
 
   test('contains the Header component', () => {
-    const Header = screen.getByRole('heading');
-    expect(Header).toBeInTheDocument();
-  });
-
-  test('contains the Login component', () => {
-    const Login = screen.getByRole('main');
-    expect(Login).toBeInTheDocument();
+    render(<App />);
+    const header = screen.getByRole('heading');
+    expect(header).toBeInTheDocument();
   });
 
   test('contains the Footer component', () => {
-    const Footer = screen.getByRole('contentinfo');
-    expect(Footer).toBeInTheDocument();
-  })
+    render(<App />);
+    const footer = screen.getByRole('contentinfo');
+    expect(footer).toBeInTheDocument();
+  });
+
+  describe('when isLoggedIn is false', () => {
+    test('renders the Login component and not CourseList', () => {
+      render(<App isLoggedIn={false} />);
+      const login = screen.getByTestId('Login');
+      expect(login).toBeInTheDocument();
+      expect(screen.queryByTestId('CourseList')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('when isLoggedIn is true', () => {
+    test('renders the CourseList component and not Login', () => {
+      render(<App isLoggedIn={true} />);
+      const courseList = screen.getByTestId('CourseList');
+      expect(courseList).toBeInTheDocument();
+      expect(screen.queryByTestId('Login')).not.toBeInTheDocument();
+    });
+  });
 });
