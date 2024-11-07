@@ -5,7 +5,7 @@ import { getLatestNotification } from "../utils/utils";
 import closeIcon from "../assets/close-icon.png";
 import NotificationItem from "./NotificationItem";
 
-const Notifications = ({ displayDrawer = true }) => {
+const Notifications = ({ displayDrawer = false }) => {
   return (
     <React.Fragment>
       <div className="notificationContainer">
