@@ -12,7 +12,7 @@ const App = ({ isLoggedIn = false }) => {
     <React.Fragment>
       <div className="App" data-testid="App">
         <div className="appContainer">
-          <Notifications />
+          <Notifications displayDrawer={true} />
           <Header />
         </div>
         {isLoggedIn ? <CourseList /> : <Login />}
