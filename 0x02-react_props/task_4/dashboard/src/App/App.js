@@ -10,9 +10,11 @@ import "./App.css";
 const App = ({ isLoggedIn = false }) => {
   return (
     <React.Fragment>
-      <Notifications />
       <div className="App" data-testid="App">
-        <Header />
+        <div className="appContainer">
+          <Notifications />
+          <Header />
+        </div>
         {isLoggedIn ? <CourseList /> : <Login />}
         <Footer />
       </div>
