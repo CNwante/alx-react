@@ -25,7 +25,7 @@ describe('NotificationItem component', () => {
   });
 
   test('renders correct html from html="<strong></strong>" props', () => {
-    render(<NotificationItem html={getLatestNotification()} />);
+    render(<NotificationItem html={getLatestNotification()} type="urgent" />);
     const htmlContent = screen.getByTestId("notification-html");
     expect(htmlContent).toBeInTheDocument();
     expect(htmlContent).toContainHTML("<strong>Urgent requirement</strong>");
