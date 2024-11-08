@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Notifications.css";
-import { getLatestNotification } from "../utils/utils";
 import closeIcon from "../assets/close-icon.png";
 import NotificationItem from "./NotificationItem";
 
-const Notifications = ({ displayDrawer = false }) => {
+const Notifications = ({ displayDrawer = false, listNotifications = [] }) => {
   return (
     <React.Fragment>
       <div className="notificationContainer">
@@ -26,9 +25,11 @@ const Notifications = ({ displayDrawer = false }) => {
             <p>Here is the list of notifications</p>
 
             <ul>
-              <NotificationItem type="default" value="New course available" />
-              <NotificationItem type="urgent" value="New resume available" />
-              <NotificationItem type="urgent" html={getLatestNotification()} />
+              {listNotifications === 0 ? (
+                 <p>No new notification for now</p>
+              ) : (
+                listNotifications.map((listNotifications) => <NotificationItem key={listNotifications.id} type={listNotifications.type} value={listNotifications.value} html={listNotifications.html}/>)
+              )}
             </ul>
           </div>
         )}
