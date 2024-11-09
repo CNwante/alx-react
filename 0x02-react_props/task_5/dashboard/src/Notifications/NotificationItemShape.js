@@ -1,4 +1,4 @@
-const NotificationItemShape = PropTypes.shape({
+const NotificationItemShape = propTypes.shape({
   id: PropTypes.number.isRequired,
   html: PropTypes.shape({ __html: PropTypes.string }),
   type: PropTypes.string.isRequired,
