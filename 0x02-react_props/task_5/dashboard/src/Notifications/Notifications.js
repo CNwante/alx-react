@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./Notifications.css";
 import closeIcon from "../assets/close-icon.png";
 import NotificationItem from "./NotificationItem";
+import NotificationItemShape from "./NotificationItemShape";
 
 const Notifications = ({ displayDrawer = false, listNotifications = [] }) => {
   return (
@@ -26,7 +27,7 @@ const Notifications = ({ displayDrawer = false, listNotifications = [] }) => {
 
             <ul>
               {listNotifications === 0 ? (
-                 <p>No new notification for now</p>
+                <li>No new notification for now</li>
               ) : (
                 listNotifications.map((listNotifications) => <NotificationItem key={listNotifications.id} type={listNotifications.type} value={listNotifications.value} html={listNotifications.html}/>)
               )}
@@ -40,6 +41,7 @@ const Notifications = ({ displayDrawer = false, listNotifications = [] }) => {
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
+  listNotifications: PropTypes.arrayOf(NotificationItemShape),
 };
 
 export default Notifications;
