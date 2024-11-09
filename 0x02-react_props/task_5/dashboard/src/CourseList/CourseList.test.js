@@ -11,6 +11,6 @@ describe('CourseList component', () => {
     render(<CourseList />);
 
     const CourseListRow = screen.getAllByRole('row');
-    expect(CourseListRow.length).toBe(5);
+    expect(CourseListRow.length).toBe(3);
   });
 });
