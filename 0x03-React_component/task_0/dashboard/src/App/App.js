@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
@@ -17,35 +17,27 @@ const listCourses = [
 const listNotifications = [
   { id: 1, type: "default", value: "New course available" },
   { id: 2, type: "urgent", value: "New resume available" },
-  { id: 3, type: "urgent", html: getLatestNotification() },
+  { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
 ];
 
-class App extends Component {
-  static propTypes = {
-    isLoggedIn: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    isLoggedIn: false,
-  };
-
-  render() {
-    const { isLoggedIn } = this.props;
-
-    return (
-      <React.Fragment>
-        <div className="App" data-testid="App">
-          <div className="appContainer">
-            <Notifications listNotifications={listNotifications} displayDrawer={true} />
-            <Header />
-          </div>
-          {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
-          <Footer />
+const App = ({ isLoggedIn = false }) => {
+  return (
+    <React.Fragment>
+      <div className="App" data-testid="App">
+        <div className="appContainer">
+          <Notifications listNotifications={listNotifications} displayDrawer={true} />
+          <Header />
         </div>
-      </React.Fragment>
-    );
-  }
-}
+        {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
+        <Footer />
+      </div>
+    </React.Fragment>
+  );
+};
+
+// PropTypes for validation
+App.propTypes = {
+  isLoggedIn: PropTypes.bool,
+};
 
 export default App;
-
