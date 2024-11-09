@@ -18,7 +18,7 @@ const CourseList = ({listCourses = []}) => {
           <CourseListRow textFirstCell="No course available yet" />
         ):(
           listCourses.map((listCourses) =>
-            <CourseListRow key={listCourses.id} textFirstCell={listCourses.name} textSecondCell={listCourses.credit} isHeader={false}/>)
+            <CourseListRow key={listCourses.id} textFirstCell={listCourses.name} textSecondCell={String(listCourses.credit)} isHeader={false}/>)
         )}
       </tbody>
     </table>
