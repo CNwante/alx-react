@@ -44,7 +44,7 @@ class App extends Component {
       alert("Logging you out");
       this.props.logOut();
     }
-  }
+  };
 
   render() {
     const { isLoggedIn } = this.props;
