@@ -1,0 +1,7 @@
+.Login-body {
+  flex-grow: 1;
+  padding-top: 2em;
+  padding-left: 2em;
+  border-top: var(--app-boder-size) solid var(--app-primary-color);
+  border-bottom: var(--app-boder-size) solid var(--app-primary-color);
+}
