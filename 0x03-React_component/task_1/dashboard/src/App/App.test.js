@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
 describe('App component', () => {
@@ -43,5 +43,18 @@ describe('App component', () => {
       expect(courseList).toBeInTheDocument();
       expect(screen.queryByTestId('Login')).not.toBeInTheDocument();
     });
+  });
+
+  test('calls logOut and shows alert on Control + h keypress', () => {
+    const logOutMock = jest.fn();
+    const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+
+    render(<App logOut={logOutMock} />);
+    fireEvent.keyDown(document, { key: 'h', ctrlKey: true });
+
+    expect(alertMock).toHaveBeenCalledWith('Logging you out');
+    expect(logOutMock).toHaveBeenCalled();
+
+    alertMock.mockRestore();
   });
 });
