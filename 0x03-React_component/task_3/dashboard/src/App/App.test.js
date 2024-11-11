@@ -15,10 +15,25 @@ describe('App component', () => {
     expect(notifications).toBeInTheDocument();
   });
 
-  test('contains the Header component', () => {
+  test('contains the Header component with the correct title', () => {
     render(<App />);
-    const header = screen.getByRole('heading');
-    expect(header).toBeInTheDocument();
+
+    // Find the main header by using getAllByRole and then filtering
+    const headings = screen.getAllByRole('heading');
+
+    // Check if the main header with text 'School dashboard' exists
+    const mainHeader = headings.find((heading) =>
+      heading.textContent === 'School dashboard'
+    );
+    expect(mainHeader).toBeInTheDocument();
+  });
+
+  test('renders the BodySectionWithMarginBottom components correctly', () => {
+    render(<App />);
+
+    // Check for specific headings introduced by BodySectionWithMarginBottom
+    expect(screen.getByText('Log in to continue')).toBeInTheDocument();
+    expect(screen.getByText('News from the School')).toBeInTheDocument();
   });
 
   test('contains the Footer component', () => {
