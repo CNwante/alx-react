@@ -1,0 +1,13 @@
+.App-header {
+  display: flex;
+  align-items: center;
+}
+
+.App-logo {
+  height: 200px;
+}
+
+.App-title {
+  font-size: 2.5rem;
+  color: var(--app-primary-color)
+}
