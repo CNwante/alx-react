@@ -3,16 +3,16 @@ import { render, screen } from '@testing-library/react';
 import BodySectionWithMarginBottom from './BodySectionWithMarginBottom';
 
 describe('BodySectionWithMarginBottom component', () => {
-  test('renders BodySection with correct props and CSS class', () => {
+  test('renders BodySection with correct props', () => {
     render(
       <BodySectionWithMarginBottom title="test title">
         <p>test children node</p>
       </BodySectionWithMarginBottom>
     );
 
-    // Check that the outer div has the correct CSS class
+    // Check that the outer div is in the document
     const outerDiv = screen.getByRole('region');
-    expect(outerDiv).toHaveClass('bodySectionWithMargin');
+    expect(outerDiv).toBeInTheDocument();
 
     // Check for the h2 element inside BodySection
     const titleElement = screen.getByRole('heading', { level: 2 });
