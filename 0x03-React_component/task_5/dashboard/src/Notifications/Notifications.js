@@ -6,7 +6,6 @@ import NotificationItem from "./NotificationItem";
 import NotificationItemShape from "./NotificationItemShape";
 
 class Notifications extends Component {
-
   constructor(props) {
     super(props);
     this.markAsRead = this.markAsRead.bind(this);
@@ -15,12 +14,17 @@ class Notifications extends Component {
   static propTypes = {
     displayDrawer: PropTypes.bool,
     listNotifications: PropTypes.arrayOf(NotificationItemShape),
-  }
+  };
 
   static defaultProps = {
     displayDrawer: false,
     listNotifications: [],
   };
+
+  // Only update when listNotifications has more items than before
+  shouldComponentUpdate(nextProps) {
+    return nextProps.listNotifications.length > this.props.listNotifications.length;
+  }
 
   markAsRead(id) {
     console.log(`Notification ${id} has been marked as read`);
