@@ -8,7 +8,7 @@ describe("Login component", () => {
 
   test('renders Login component without crashing', () => {
     const mainElement = screen.getByRole("main");
-    expect(mainElement).toHaveClass("Login-body");
+    expect(mainElement).toBeInTheDocument();
   });
 
   test('renders 2 input fields and 2 label tags in Login component', () => {
