@@ -4,7 +4,7 @@ import {getFullYear, getFooterCopy} from '../utils/utils';
 
 const Footer = () => {
   return (
-    <footer className={css(styles.appFooter)}>
+    <footer className={css(styles.appFooter)} role='contentinfo'>
       Copyright {getFullYear()} - {getFooterCopy(true)}
     </footer>
   );
