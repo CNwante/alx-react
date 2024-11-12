@@ -55,4 +55,40 @@ describe('Notifications component', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Notification 1 has been marked as read');
     consoleSpy.mockRestore();
   });
+
+  test('does not re-render when given the same listNotifications prop', () => {
+    const sampleNotifications = [
+      { id: 1, type: "default", value: "New course available" },
+    ];
+
+    const { rerender } = render(<Notifications displayDrawer={true} listNotifications={sampleNotifications} />);
+
+    const consoleSpy = jest.spyOn(console, 'log');
+    consoleSpy.mockClear(); // Clear any initial logs
+
+    // Rerender the component with the same notifications list
+    rerender(<Notifications displayDrawer={true} listNotifications={sampleNotifications} />);
+
+    expect(consoleSpy).not.toHaveBeenCalled();
+    consoleSpy.mockRestore();
+  });
+
+  test('re-renders when given a longer listNotifications prop', () => {
+    const initialNotifications = [
+      { id: 1, type: "default", value: "New course available" },
+    ];
+    const updatedNotifications = [
+      ...initialNotifications,
+      { id: 2, type: "urgent", value: "New resume available" },
+    ];
+
+    const { rerender } = render(<Notifications displayDrawer={true} listNotifications={initialNotifications} />);
+
+    const initialNotificationCount = screen.getAllByRole('listitem').length;
+
+    rerender(<Notifications displayDrawer={true} listNotifications={updatedNotifications} />);
+
+    const updatedNotificationCount = screen.getAllByRole('listitem').length;
+    expect(updatedNotificationCount).toBeGreaterThan(initialNotificationCount);
+  });
 });
