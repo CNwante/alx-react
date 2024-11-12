@@ -42,4 +42,30 @@ describe('CourseListRow component', () => {
     const tdElements = screen.getAllByRole('cell');
     expect(tdElements).toHaveLength(2);
   });
+
+  test('applies header background color style when isHeader is true', () => {
+    render(
+      <table>
+        <tbody>
+          <CourseListRow isHeader={true} textFirstCell="Header 1" textSecondCell="Header 2" />
+        </tbody>
+      </table>
+    );
+
+    const rowElement = screen.getByRole('row');
+    expect(rowElement).toHaveStyle('background-color: #deb5b545');
+  });
+
+  test('applies row background color style when isHeader is false', () => {
+    render(
+      <table>
+        <tbody>
+          <CourseListRow isHeader={false} textFirstCell="Cell 1" textSecondCell="Cell 2" />
+        </tbody>
+      </table>
+    );
+
+    const rowElement = screen.getByRole('row');
+    expect(rowElement).toHaveStyle('background-color: #f5f5f5ab');
+  });
 });
