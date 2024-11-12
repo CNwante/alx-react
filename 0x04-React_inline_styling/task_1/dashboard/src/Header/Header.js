@@ -1,11 +1,26 @@
+import React from "react";
+import { StyleSheet, css } from 'aphrodite';
 import logo from "../assets/holberton-logo.png";
-import "./Header.css";
+
+const styles = StyleSheet.create({
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  logo: {
+    height: '200px',
+  },
+  title: {
+    fontSize: '2.5rem',
+    color: 'var(--app-primary-color)',
+  },
+});
 
 const Header = () => {
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="holberton-logo" />
-      <h1 className="App-title">School dashboard</h1>
+    <header className={css(styles.header)}>
+      <img src={logo} className={css(styles.logo)} alt="holberton-logo" />
+      <h1 className={css(styles.title)}>School dashboard</h1>
     </header>
   );
 };
