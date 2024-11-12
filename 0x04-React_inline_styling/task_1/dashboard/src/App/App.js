@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { StyleSheet, css } from "aphrodite";
 import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -41,7 +42,7 @@ class App extends Component {
   }
 
   handleKeyDown = (event) => {
-    if (event.ctrlKey & event.key === "h") {
+    if (event.ctrlKey && event.key === "h") {
       alert("Logging you out");
       this.props.logOut();
     }
@@ -52,8 +53,8 @@ class App extends Component {
 
     return (
       <React.Fragment>
-        <div className="App" data-testid="App">
-          <div className="appContainer">
+        <div className={css(styles.app)} data-testid="App">
+          <div className={css(styles.appContainer)}>
             <Notifications listNotifications={listNotifications} displayDrawer={true} />
             <Header />
           </div>
@@ -75,5 +76,21 @@ class App extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  app: {
+    display: "flex",
+    flexDirection: "column",
+    height: "100vh",
+  },
+  appContainer: {
+    display: "flex",
+    flexDirection: "row-reverse",
+    justifyContent: "space-between",
+    borderBottom: "3px solid rgb(194, 79, 79)",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    backgroundColor: "#ffffff",
+  },
+});
 
 export default App;
