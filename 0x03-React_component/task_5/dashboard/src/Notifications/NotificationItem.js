@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 
-class NotificationItem extends Component {
+class NotificationItem extends PureComponent {
   static propTypes = {
     type: PropTypes.string.isRequired,
     __html: PropTypes.shape({
@@ -13,7 +13,7 @@ class NotificationItem extends Component {
   };
 
   static defaultProps = {
-    markasRead: () => {},
+    markAsRead: () => {},
   };
 
   handleClick = () => {
