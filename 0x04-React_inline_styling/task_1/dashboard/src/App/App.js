@@ -8,7 +8,6 @@ import CourseList from "../CourseList/CourseList";
 import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import { getLatestNotification } from "../utils/utils";
-import "./App.css";
 
 const listCourses = [
   { id: 1, name: "ES6", credit: 60 },
