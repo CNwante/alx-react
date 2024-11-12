@@ -6,13 +6,13 @@ describe('Footer component', () => {
     render (<Footer />);
   });
 
-  test('renders a div with the class App-footer', () => {
+  test('renders element with the role contentinfo', () => {
     const footerElement = screen.getByRole('contentinfo');
-    expect(footerElement).toHaveClass('App-footer');
+    expect(footerElement).toBeInTheDocument();
   });
 
   test('renders the text “Copyright”', () => {
     const copyrightText = screen.getByText(/Copyright/);
     expect(copyrightText).toBeInTheDocument();
-  })
+  });
 });
