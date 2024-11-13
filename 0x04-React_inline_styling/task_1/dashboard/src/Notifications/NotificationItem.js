@@ -35,7 +35,7 @@ class NotificationItem extends PureComponent {
           <li
             data-urgent
             data-testid="notification-html"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={html}
             onClick={this.handleClick}
           ></li>
         ) : null}
