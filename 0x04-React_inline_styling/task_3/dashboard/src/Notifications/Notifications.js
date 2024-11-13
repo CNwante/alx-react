@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
       width: "90%",
       height: "auto",
       padding: "1em",
-      border: "2px solid red",
+      border: "2px dashed red",
       marginBottom: "20px"
     },
   },
