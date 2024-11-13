@@ -1,11 +1,12 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import { StyleSheet, css } from "aphrodite";
 
 class NotificationItem extends PureComponent {
   static propTypes = {
     type: PropTypes.string.isRequired,
-    __html: PropTypes.shape({
-      html: PropTypes.string,
+    html: PropTypes.shape({
+      __html: PropTypes.string,
     }),
     value: PropTypes.string,
     markAsRead: PropTypes.func,
@@ -27,15 +28,20 @@ class NotificationItem extends PureComponent {
     return (
       <>
         {type && value ? (
-          <li data-notification-type={type} onClick={this.handleClick}>
+          <li
+            className={css(type === "urgent" ? styles.urgent : styles.default)}
+            data-notification-type={type}
+            onClick={this.handleClick}
+          >
             {value}
           </li>
         ) : null}
         {html ? (
           <li
+            className={css(styles.urgent)}
             data-urgent
             data-testid="notification-html"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={html}
             onClick={this.handleClick}
           ></li>
         ) : null}
@@ -43,5 +49,14 @@ class NotificationItem extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  default: {
+    color: "blue",
+  },
+  urgent: {
+    color: "red",
+  },
+});
 
 export default NotificationItem;
