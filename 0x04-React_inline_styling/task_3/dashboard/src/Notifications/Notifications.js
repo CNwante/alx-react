@@ -49,7 +49,7 @@ class Notifications extends Component {
 
             <p>Here is the list of notifications</p>
 
-            <ul>
+            <ul className={css(styles.notificationList)}>
               {listNotifications.length === 0 ? (
                 <li>No new notification for now</li>
               ) : (
@@ -80,20 +80,39 @@ const styles = StyleSheet.create({
     marginBottom: "1em",
   },
   notifications: {
-    position: "relative",
-    border: "2px dashed #c24f4f",
-    padding: "2em 0",
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "95%",
+    height: "100%",
+    backgroundColor: "white",
+    zIndex: 1000,
+    fontSize: "20px",
+    padding: "1em",
+    overflowY: "auto",
+    "@media (min-width: 900px)": {
+      position: "relative",
+      width: "90%",
+      height: "auto",
+      padding: "1em",
+      border: "2px solid red",
+      marginBottom: "20px"
+    },
   },
   closeBtn: {
     border: "none",
     background: "transparent",
     cursor: "pointer",
     position: "absolute",
-    right: "0",
-    top: "5px",
+    right: "1em",
+    top: "1em",
   },
   closeIcon: {
     width: "20px",
+  },
+  notificationList: {
+    padding: 0,
+    listStyleType: "none",
   },
 });
 

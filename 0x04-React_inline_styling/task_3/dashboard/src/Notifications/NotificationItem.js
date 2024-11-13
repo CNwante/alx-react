@@ -29,7 +29,10 @@ class NotificationItem extends PureComponent {
       <>
         {type && value ? (
           <li
-            className={css(type === "urgent" ? styles.urgent : styles.default)}
+            className={css(
+              styles.notificationItem,
+              type === "urgent" ? styles.urgent : styles.default
+            )}
             data-notification-type={type}
             onClick={this.handleClick}
           >
@@ -38,7 +41,7 @@ class NotificationItem extends PureComponent {
         ) : null}
         {html ? (
           <li
-            className={css(styles.urgent)}
+            className={css(styles.notificationItem, styles.urgent)}
             data-urgent
             data-testid="notification-html"
             dangerouslySetInnerHTML={html}
@@ -51,6 +54,12 @@ class NotificationItem extends PureComponent {
 }
 
 const styles = StyleSheet.create({
+  notificationItem: {
+    width: "100%",
+    fontSize: "20px",
+    padding: "10px 8px",
+    borderBottom: "1px solid black",
+  },
   default: {
     color: "blue",
   },
