@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: '2.5rem',
-    color: 'var(--app-primary-color)',
+    color: 'rgb(194, 79, 79)',
   },
 });
 
