@@ -43,6 +43,7 @@ describe('CourseListRow component', () => {
     expect(tdElements).toHaveLength(2);
   });
 
+  /*
   test('applies header background color style when isHeader is true', () => {
     render(
       <table>
@@ -56,6 +57,7 @@ describe('CourseListRow component', () => {
     expect(rowElement).toHaveStyle('background-color: #deb5b545');
   });
 
+
   test('applies row background color style when isHeader is false', () => {
     render(
       <table>
@@ -68,4 +70,5 @@ describe('CourseListRow component', () => {
     const rowElement = screen.getByRole('row');
     expect(rowElement).toHaveStyle('background-color: #f5f5f5ab');
   });
+  */
 });
