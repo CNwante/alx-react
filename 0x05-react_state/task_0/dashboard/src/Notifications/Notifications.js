@@ -6,35 +6,42 @@ import NotificationItem from "./NotificationItem";
 import NotificationItemShape from "./NotificationItemShape";
 
 class Notifications extends Component {
-  constructor(props) {
-    super(props);
-    this.markAsRead = this.markAsRead.bind(this);
-  }
-
   static propTypes = {
     displayDrawer: PropTypes.bool,
     listNotifications: PropTypes.arrayOf(NotificationItemShape),
+    handleDisplayDrawer: PropTypes.func,
+    handleHideDrawer: PropTypes.func,
   };
 
   static defaultProps = {
     displayDrawer: false,
     listNotifications: [],
+    handleDisplayDrawer: () => {},
+    handleHideDrawer: () => {},
   };
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.listNotifications.length > this.props.listNotifications.length;
-  }
-
-  markAsRead(id) {
-    console.log(`Notification ${id} has been marked as read`);
+    return (
+      nextProps.listNotifications.length > this.props.listNotifications.length ||
+      nextProps.displayDrawer !== this.props.displayDrawer
+    );
   }
 
   render() {
-    const { displayDrawer, listNotifications } = this.props;
+    const {
+      displayDrawer,
+      listNotifications,
+      handleDisplayDrawer,
+      handleHideDrawer,
+    } = this.props;
 
     return (
       <div className={css(styles.notificationContainer)}>
-        <div className={css(styles.menuItem)}>
+        <div
+          className={css(styles.menuItem)}
+          onClick={handleDisplayDrawer}
+          data-testid="menu-item"
+        >
           <p>Your notifications</p>
         </div>
         {displayDrawer && (
@@ -42,13 +49,15 @@ class Notifications extends Component {
             <button
               className={css(styles.closeBtn)}
               aria-label="Close"
-              onClick={() => console.log("Close button has been clicked")}
+              onClick={handleHideDrawer}
             >
-              <img src={closeIcon} className={css(styles.closeIcon)} alt="close" />
+              <img
+                src={closeIcon}
+                className={css(styles.closeIcon)}
+                alt="close"
+              />
             </button>
-
             <p>Here is the list of notifications</p>
-
             <ul className={css(styles.notificationList)}>
               {listNotifications.length === 0 ? (
                 <li>No new notification for now</li>
@@ -60,7 +69,6 @@ class Notifications extends Component {
                     type={notification.type}
                     value={notification.value}
                     html={notification.html}
-                    markAsRead={this.markAsRead}
                   />
                 ))
               )}
@@ -78,6 +86,7 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     marginBottom: "1em",
+    cursor: "pointer",
   },
   notifications: {
     position: "fixed",
@@ -96,7 +105,7 @@ const styles = StyleSheet.create({
       height: "auto",
       padding: "1em",
       border: "2px dashed red",
-      marginBottom: "20px"
+      marginBottom: "20px",
     },
   },
   closeBtn: {

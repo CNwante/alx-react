@@ -33,6 +33,23 @@ class App extends Component {
     logOut: () => {},
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayDrawer: false,
+    };
+    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+    this.handleHideDrawer = this.handleHideDrawer.bind(this);
+  }
+
+  handleDisplayDrawer() {
+    this.setState({ displayDrawer: true });
+  }
+
+  handleHideDrawer() {
+    this.setState({ displayDrawer: false });
+  }
+
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
   }
@@ -50,12 +67,18 @@ class App extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
+    const { displayDrawer } = this.state;
 
     return (
       <React.Fragment>
         <div className={css(styles.app)} data-testid="App">
           <div className={css(styles.appContainer)}>
-            <Notifications listNotifications={listNotifications} displayDrawer={true} />
+            <Notifications
+              listNotifications={listNotifications}
+              displayDrawer={displayDrawer}
+              handleDisplayDrawer={this.handleDisplayDrawer}
+              handleHideDrawer={this.handleHideDrawer}
+            />
             <Header />
           </div>
           {isLoggedIn ? (
