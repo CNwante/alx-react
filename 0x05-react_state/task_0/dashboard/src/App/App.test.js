@@ -9,10 +9,44 @@ describe('App component', () => {
     expect(divAppElement).toBeInTheDocument();
   });
 
-  test('contains the Notifications component', () => {
+  test("contains the Notifications component after clicking 'Your notifications'", () => {
     render(<App />);
-    const notifications = screen.getByTestId('Notifications');
+
+    // Initially, Notifications is not rendered
+    let notifications = screen.queryByTestId("Notifications");
+    expect(notifications).toBeNull();
+
+    // Simulate clicking on "Your notifications" to show the drawer
+    const menuItem = screen.getByText("Your notifications");
+    fireEvent.click(menuItem);
+
+    // After clicking, Notifications should be rendered
+    notifications = screen.getByTestId("Notifications");
     expect(notifications).toBeInTheDocument();
+  });
+
+  test("default state of displayDrawer is false", () => {
+    render(<App />);
+    const notifications = screen.queryByTestId("Notifications");
+    expect(notifications).toBeNull();
+  });
+
+  test("handleDisplayDrawer sets displayDrawer to true", () => {
+    render(<App />);
+    const menuItem = screen.getByText("Your notifications");
+    fireEvent.click(menuItem);
+    const notifications = screen.getByTestId("Notifications");
+    expect(notifications).toBeInTheDocument();
+  });
+
+  test("handleHideDrawer sets displayDrawer to false", () => {
+    render(<App />);
+    const menuItem = screen.getByText("Your notifications");
+    fireEvent.click(menuItem); // Opens the drawer
+    const closeButton = screen.getByRole("button", { name: "Close" });
+    fireEvent.click(closeButton); // Closes the drawer
+    const notifications = screen.queryByTestId("Notifications");
+    expect(notifications).toBeNull();
   });
 
   test('contains the Header component with the correct title', () => {

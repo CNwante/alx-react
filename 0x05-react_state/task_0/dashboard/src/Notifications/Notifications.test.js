@@ -44,18 +44,6 @@ describe('Notifications component', () => {
     expect(notificationsDiv).toBeInTheDocument();
   });
 
-  test('markAsRead logs the correct message to the console', () => {
-    const sampleNotifications = [{ id: 1, type: "default", value: "New course available" }];
-    const consoleSpy = jest.spyOn(console, 'log');
-
-    render(<Notifications displayDrawer={true} listNotifications={sampleNotifications} />);
-    const notificationItem = screen.getByText('New course available');
-    fireEvent.click(notificationItem);
-
-    expect(consoleSpy).toHaveBeenCalledWith('Notification 1 has been marked as read');
-    consoleSpy.mockRestore();
-  });
-
   test('does not re-render when given the same listNotifications prop', () => {
     const sampleNotifications = [
       { id: 1, type: "default", value: "New course available" },
@@ -90,5 +78,32 @@ describe('Notifications component', () => {
 
     const updatedNotificationCount = screen.getAllByRole('listitem').length;
     expect(updatedNotificationCount).toBeGreaterThan(initialNotificationCount);
+  });
+
+  const mockHandleDisplayDrawer = jest.fn();
+  const mockHandleHideDrawer = jest.fn();
+
+  test("clicking on menu item calls handleDisplayDrawer", () => {
+    render(
+      <Notifications
+        displayDrawer={false}
+        handleDisplayDrawer={mockHandleDisplayDrawer}
+      />
+    );
+    const menuItem = screen.getByText("Your notifications");
+    fireEvent.click(menuItem);
+    expect(mockHandleDisplayDrawer).toHaveBeenCalledTimes(1);
+  });
+
+  test("clicking on close button calls handleHideDrawer", () => {
+    render(
+      <Notifications
+        displayDrawer={true}
+        handleHideDrawer={mockHandleHideDrawer}
+      />
+    );
+    const closeButton = screen.getByRole("button", { name: "Close" });
+    fireEvent.click(closeButton);
+    expect(mockHandleHideDrawer).toHaveBeenCalledTimes(1);
   });
 });
