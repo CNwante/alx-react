@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { StyleSheet, css } from "aphrodite";
 import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
@@ -9,6 +8,7 @@ import CourseList from "../CourseList/CourseList";
 import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import { getLatestNotification } from "../utils/utils";
+import { AppContext, defaultUser } from "./AppContext";
 
 const listCourses = [
   { id: 1, name: "ES6", credit: 60 },
@@ -23,24 +23,32 @@ const listNotifications = [
 ];
 
 class App extends Component {
-  static propTypes = {
-    isLoggedIn: PropTypes.bool,
-    logOut: PropTypes.func,
-  };
-
-  static defaultProps = {
-    isLoggedIn: false,
-    logOut: () => {},
-  };
-
   constructor(props) {
     super(props);
     this.state = {
       displayDrawer: false,
+      user: defaultUser,
+      logOut: this.logOut,
     };
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
   }
+
+  logIn = (email, password) => {
+    this.setState({
+      user: {
+        email,
+        password,
+        isLoggedIn: true,
+      }
+    });
+  };
+
+  logOut = () => {
+    this.setState({
+      user: defaultUser,
+    });
+  };
 
   handleDisplayDrawer() {
     this.setState({ displayDrawer: true });
@@ -61,16 +69,15 @@ class App extends Component {
   handleKeyDown = (event) => {
     if (event.ctrlKey && event.key === "h") {
       alert("Logging you out");
-      this.props.logOut();
+      this.state.logOut();
     }
   };
 
   render() {
-    const { isLoggedIn } = this.props;
-    const { displayDrawer } = this.state;
+    const { displayDrawer, user, logOut } = this.state;
 
     return (
-      <React.Fragment>
+      <AppContext.Provider value={{ user, logOut }}>
         <div className={css(styles.app)} data-testid="App">
           <div className={css(styles.appContainer)}>
             <Notifications
@@ -81,13 +88,13 @@ class App extends Component {
             />
             <Header />
           </div>
-          {isLoggedIn ? (
+          {user.isLoggedIn ? ( // Use state to check login
             <BodySectionWithMarginBottom title="Course list">
               <CourseList listCourses={listCourses} />
             </BodySectionWithMarginBottom>
           ) : (
             <BodySectionWithMarginBottom title="Log in to continue">
-              <Login />
+              <Login logIn={this.logIn} /> {/* Pass the logIn function */}
             </BodySectionWithMarginBottom>
           )}
           <BodySection title="News from the School">
@@ -95,7 +102,7 @@ class App extends Component {
           </BodySection>
           <Footer />
         </div>
-      </React.Fragment>
+      </AppContext.Provider>
     );
   }
 }
