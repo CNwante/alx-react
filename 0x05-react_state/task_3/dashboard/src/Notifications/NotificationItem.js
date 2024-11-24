@@ -27,7 +27,7 @@ class NotificationItem extends PureComponent {
 
     return (
       <>
-        {type && value ? (
+        {value && (
           <li
             className={css(
               styles.notificationItem,
@@ -38,16 +38,16 @@ class NotificationItem extends PureComponent {
           >
             {value}
           </li>
-        ) : null}
-        {html ? (
+        )}
+        {html && (
           <li
             className={css(styles.notificationItem, styles.urgent)}
-            data-urgent
+            data-notification-type="urgent"
             data-testid="notification-html"
             dangerouslySetInnerHTML={html}
             onClick={this.handleClick}
           ></li>
-        ) : null}
+        )}
       </>
     );
   }
