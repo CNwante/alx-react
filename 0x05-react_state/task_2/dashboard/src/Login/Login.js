@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, css } from "aphrodite";
 
-const Login = () => {
+const Login = ({ logIn }) => {
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -27,7 +27,8 @@ const Login = () => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    setState((prevState) => ({ ...prevState, isLoggedIn: true }));
+    const { email, password } = state;
+    logIn(email, password);
   };
 
   return (
