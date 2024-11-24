@@ -16,12 +16,6 @@ const listCourses = [
   { id: 3, name: "React", credit: 40 },
 ];
 
-const listNotifications = [
-  { id: 1, type: "default", value: "New course available" },
-  { id: 2, type: "urgent", value: "New resume available" },
-  { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
-];
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +23,12 @@ class App extends Component {
       displayDrawer: false,
       user: defaultUser,
       logOut: this.logOut,
+      listNotifications: [
+        // Add listNotifications to the state
+        { id: 1, type: "default", value: "New course available" },
+        { id: 2, type: "urgent", value: "New resume available" },
+        { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
+      ],
     };
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
@@ -40,7 +40,7 @@ class App extends Component {
         email,
         password,
         isLoggedIn: true,
-      }
+      },
     });
   };
 
@@ -48,6 +48,15 @@ class App extends Component {
     this.setState({
       user: defaultUser,
     });
+  };
+
+  // New method to remove a notification by id
+  markNotificationAsRead = (id) => {
+    this.setState((prevState) => ({
+      listNotifications: prevState.listNotifications.filter(
+        (notification) => notification.id !== id
+      ),
+    }));
   };
 
   handleDisplayDrawer() {
@@ -58,6 +67,13 @@ class App extends Component {
     this.setState({ displayDrawer: false });
   }
 
+  handleKeyDown = (event) => {
+    if (event.ctrlKey && event.key === "h") {
+      alert("Logging you out");
+      this.state.logOut();
+    }
+  };
+
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
   }
@@ -66,35 +82,29 @@ class App extends Component {
     document.removeEventListener("keydown", this.handleKeyDown);
   }
 
-  handleKeyDown = (event) => {
-    if (event.ctrlKey && event.key === "h") {
-      alert("Logging you out");
-      this.state.logOut();
-    }
-  };
-
   render() {
-    const { displayDrawer, user, logOut } = this.state;
+    const { displayDrawer, user, logOut, listNotifications } = this.state;
 
     return (
       <AppContext.Provider value={{ user, logOut }}>
         <div className={css(styles.app)} data-testid="App">
           <div className={css(styles.appContainer)}>
             <Notifications
-              listNotifications={listNotifications}
+              listNotifications={listNotifications} // Pass state listNotifications
               displayDrawer={displayDrawer}
               handleDisplayDrawer={this.handleDisplayDrawer}
               handleHideDrawer={this.handleHideDrawer}
+              markNotificationAsRead={this.markNotificationAsRead} // Pass the function
             />
             <Header />
           </div>
-          {user.isLoggedIn ? ( // Use state to check login
+          {user.isLoggedIn ? (
             <BodySectionWithMarginBottom title="Course list">
               <CourseList listCourses={listCourses} />
             </BodySectionWithMarginBottom>
           ) : (
             <BodySectionWithMarginBottom title="Log in to continue">
-              <Login logIn={this.logIn} /> {/* Pass the logIn function */}
+              <Login logIn={this.logIn} />
             </BodySectionWithMarginBottom>
           )}
           <BodySection title="News from the School">
