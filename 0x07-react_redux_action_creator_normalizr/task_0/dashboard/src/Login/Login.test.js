@@ -3,8 +3,11 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import Login from "./Login";
 
 describe("Login component", () => {
+  let mockLogIn;
+
   beforeEach(() => {
-    render(<Login />);
+    mockLogIn = jest.fn(); // Create a mock function
+    render(<Login logIn={mockLogIn} />);
   });
 
   test("renders Login component without crashing", () => {
@@ -52,7 +55,7 @@ describe("Login component", () => {
 
     fireEvent.click(submitButton);
 
-    // Ideally, you would check for a state update or some UI change
-    expect(submitButton).toBeInTheDocument(); // Update this as needed
+    // Check that the mock logIn function was called with the correct arguments
+    expect(mockLogIn).toHaveBeenCalledWith("test@example.com", "password123");
   });
 });
