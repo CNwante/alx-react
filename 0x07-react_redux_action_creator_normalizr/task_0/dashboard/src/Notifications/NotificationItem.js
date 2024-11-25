@@ -43,6 +43,7 @@ class NotificationItem extends PureComponent {
           <li
             className={css(styles.notificationItem, styles.urgent)}
             data-notification-type="urgent"
+            data-urgent="true"
             data-testid="notification-html"
             dangerouslySetInnerHTML={html}
             onClick={this.handleClick}
