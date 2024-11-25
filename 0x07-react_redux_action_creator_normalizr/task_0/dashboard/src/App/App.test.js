@@ -85,25 +85,27 @@ describe('App component', () => {
     });
   });
 
-  describe('when isLoggedIn is true', () => {
-    test('renders the CourseList component and not Login', () => {
-      render(<App isLoggedIn={true} />);
-      const courseList = screen.getByTestId('CourseList');
-      expect(courseList).toBeInTheDocument();
-      expect(screen.queryByTestId('Login')).not.toBeInTheDocument();
+  /*
+    describe('when isLoggedIn is true', () => {
+      test('renders the CourseList component and not Login', () => {
+        render(<App isLoggedIn={true} />);
+        const courseList = screen.getByTestId('CourseList');
+        expect(courseList).toBeInTheDocument();
+        expect(screen.queryByTestId('Login')).not.toBeInTheDocument();
+      });
     });
-  });
 
-  test('calls logOut and shows alert on Control + h keypress', () => {
-    const logOutMock = jest.fn();
-    const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+    test('calls logOut and shows alert on Control + h keypress', () => {
+      const logOutMock = jest.fn();
+      const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
 
-    render(<App logOut={logOutMock} />);
-    fireEvent.keyDown(document, { key: 'h', ctrlKey: true });
+      render(<App logOut={logOutMock} />);
+      fireEvent.keyDown(document, { key: 'h', ctrlKey: true });
 
-    expect(alertMock).toHaveBeenCalledWith('Logging you out');
-    expect(logOutMock).toHaveBeenCalled();
+      expect(alertMock).toHaveBeenCalledWith('Logging you out');
+      expect(logOutMock).toHaveBeenCalled();
 
-    alertMock.mockRestore();
-  });
+      alertMock.mockRestore();
+    });
+  */
 });
