@@ -1,5 +1,5 @@
 import { NotificationTypeFilters } from "./notificationActionTypes";
-import { markAsAread, setNotificationFilter } from "./notificationActionCreators";
+import { markAsRead, setNotificationFilter } from "./notificationActionCreators";
 
 describe("Test for Notifications Action Creators", () => {
   test("Calling the creator with 1 as an argument should return obj", () => {
@@ -7,7 +7,7 @@ describe("Test for Notifications Action Creators", () => {
       type: "MARK_AS_READ",
       index: 1,
     };
-    expect(markAsAread(1)).toEqual(expectedResult);
+    expect(markAsRead(1)).toEqual(expectedResult);
   });
 
   test("Calling the creator with DEFAULT filter return the obj", () => {
