@@ -10,6 +10,9 @@ export const login = (email, password) => {
 export const boundLogin = (email, password) => (dispatch) =>
   dispatch(login(email, password));
 
+export const loginSuccess = () => ({ type: uiActionTypes.LOGIN_SUCCESS });
+export const loginFailure = () => ({ type: uiActionTypes.LOGIN_FAILURE });
+
 export const logout = () => ({ type: uiActionTypes.LOGOUT });
 
 export const boundLogout = () => (dispatch) => dispatch(logout());
