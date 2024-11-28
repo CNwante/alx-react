@@ -13,6 +13,21 @@ export const boundLogin = (email, password) => (dispatch) =>
 export const loginSuccess = () => ({ type: uiActionTypes.LOGIN_SUCCESS });
 export const loginFailure = () => ({ type: uiActionTypes.LOGIN_FAILURE });
 
+// Async action creator for login
+export const loginRequest = (email, password) => {
+  return (dispatch) => {
+    boundLogin(email, password);
+
+    return fetch("/public/login-success.json")
+      .then((response) => {
+        if (!response.ok) throw new Error("API failure");
+        return response.json();
+      })
+      .then((data) => dispatch(loginSuccess()))
+      .catch((error) => dispatch(loginFailure()));
+  };
+};
+
 export const logout = () => ({ type: uiActionTypes.LOGOUT });
 
 export const boundLogout = () => (dispatch) => dispatch(logout());
