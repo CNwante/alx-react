@@ -1,24 +1,19 @@
-import { NotificationTypeFilters, FETCH_NOTIFICATIONS_SUCCESS } from "./notificationActionTypes";
-import { fetchNotificationsSuccess, markAsRead, setNotificationFilter } from "./notificationActionCreators";
+import {
+  NotificationTypeFilters,
+  FETCH_NOTIFICATIONS_SUCCESS,
+} from "./notificationActionTypes";
+import {
+  fetchNotificationsSuccess,
+  markAsRead,
+  setNotificationFilter,
+} from "./notificationActionCreators";
 
 describe("Test for Notifications Action Creators", () => {
   test("Calling fetchNotificationsSuccess returns the correct notification data", () => {
     const notifications = [
-      {
-        id: 1,
-        type: "default",
-        value: "New course available"
-      },
-      {
-        id: 2,
-        type: "urgent",
-        value: "New resume available"
-      },
-      {
-        id: 3,
-        type: "urgent",
-        value: "New data available"
-      }
+      { id: 1, type: "default", value: "New course available" },
+      { id: 2, type: "urgent", value: "New resume available" },
+      { id: 3, type: "urgent", value: "New data available" },
     ];
 
     const expectedResult = {
@@ -28,21 +23,11 @@ describe("Test for Notifications Action Creators", () => {
           id: 1,
           isRead: false,
           type: "default",
-          value: "New course available"
+          value: "New course available",
         },
-        {
-          id: 2,
-          isRead: false,
-          type: "urgent",
-          value: "New resume available"
-        },
-        {
-          id: 3,
-          isRead: false,
-          type: "urgent",
-          value: "New data available"
-        }
-      ]
+        { id: 2, isRead: false, type: "urgent", value: "New resume available" },
+        { id: 3, isRead: false, type: "urgent", value: "New data available" },
+      ],
     };
 
     expect(fetchNotificationsSuccess(notifications)).toEqual(expectedResult);
