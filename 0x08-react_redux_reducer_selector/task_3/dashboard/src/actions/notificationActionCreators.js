@@ -1,4 +1,16 @@
-import { MARK_AS_READ, SET_TYPE_FILTER } from "./notificationActionTypes";
+import { FETCH_NOTIFICATIONS_SUCCESS, MARK_AS_READ, SET_TYPE_FILTER } from "./notificationActionTypes";
+
+// Action creator for fetch notifications success
+export const fetchNotificationsSuccess = (data) => {
+  return {
+    type: FETCH_NOTIFICATIONS_SUCCESS,
+    data,
+  }
+}
+
+// Bound action creator for fetch notifications success
+export const boundFetchNotificationsSuccess = (data) => (dispatch) =>
+  dispatch(fetchNotificationsSuccess(data));
 
 // Action creator for marking a notification as read
 export const markAsRead = (index) => {
