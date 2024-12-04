@@ -1,4 +1,4 @@
-import { getAllNotificationsByUser, normalizedData } from "./notifications";
+import { getAllNotificationsByUser, notificationsNormalizer } from "./notifications";
 
 describe("Test for Notifications.js", () => {
   it("verify that the function returns the correct data", () => {
@@ -42,7 +42,7 @@ describe("Test for Normalized Notifications", () => {
       "5debd76468cb5b277fd125f4",
       "5debd764de9fa684468cdc0b",
     ];
-    expect(normalizedData.result).toEqual(expectedResult);
+    expect(notificationsNormalizer.result).toEqual(expectedResult);
   });
 
   test("Verify that normalized data has a correct users entity", () => {
@@ -54,7 +54,7 @@ describe("Test for Normalized Notifications", () => {
       picture: "http://placehold.it/32x32",
     };
 
-    expect(normalizedData.entities.users["5debd764a7c57c7839d722e9"]).toEqual(
+    expect(notificationsNormalizer.entities.users["5debd764a7c57c7839d722e9"]).toEqual(
       expectedResult
     );
   });
@@ -68,7 +68,7 @@ describe("Test for Normalized Notifications", () => {
     };
 
     expect(
-      normalizedData.entities.messages["efb6c485-00f7-4fdf-97cc-5e12d14d6c41"]
+      notificationsNormalizer.entities.messages["efb6c485-00f7-4fdf-97cc-5e12d14d6c41"]
     ).toEqual(expectedResult);
   });
 
@@ -80,7 +80,7 @@ describe("Test for Normalized Notifications", () => {
     };
 
     expect(
-      normalizedData.entities.notifications["5debd7642e815cd350407777"]
+      notificationsNormalizer.entities.notifications["5debd7642e815cd350407777"]
     ).toEqual(expectedResult);
   });
 });
