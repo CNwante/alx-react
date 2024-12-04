@@ -1,6 +1,8 @@
-
-import { filterTypeSelected, getNotifications, getUnreadNotifications } from "./notificationSelector";
-
+import {
+  filterTypeSelected,
+  getNotifications,
+  getUnreadNotifications,
+} from "./notificationSelector";
 
 describe("Notification Selector Test", () => {
   const state = {
@@ -18,7 +20,12 @@ describe("Notification Selector Test", () => {
 
   test("getNotifications should return all notifications as a Map", () => {
     const expected = {
-      1: { id: 1, type: "default", value: "New course available", isRead: false },
+      1: {
+        id: 1,
+        type: "default",
+        value: "New course available",
+        isRead: false,
+      },
       2: { id: 2, type: "urgent", value: "New resume available", isRead: true },
       3: { id: 3, type: "urgent", value: "New data available", isRead: false },
     };
@@ -27,10 +34,14 @@ describe("Notification Selector Test", () => {
 
   test("getUnreadNotifications should return only unread notifications as a Map", () => {
     const expected = {
-      1: { id: 1, type: "default", value: "New course available", isRead: false },
+      1: {
+        id: 1,
+        type: "default",
+        value: "New course available",
+        isRead: false,
+      },
       3: { id: 3, type: "urgent", value: "New data available", isRead: false },
     };
     expect(getUnreadNotifications(state)).toEqual(expected);
   });
-
 });
