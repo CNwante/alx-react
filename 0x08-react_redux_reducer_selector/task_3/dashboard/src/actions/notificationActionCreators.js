@@ -8,7 +8,7 @@ export const fetchNotificationsSuccess = (data) => {
   }));
 
   return {
-    type: "FETCH_NOTIFICATIONS_SUCCESS",
+    type: FETCH_NOTIFICATIONS_SUCCESS,
     data: notificationsWithIsRead,
   };
 };
