@@ -2,11 +2,16 @@ import { FETCH_NOTIFICATIONS_SUCCESS, MARK_AS_READ, SET_TYPE_FILTER } from "./no
 
 // Action creator for fetch notifications success
 export const fetchNotificationsSuccess = (data) => {
+  const notificationsWithIsRead = data.map((notification) => ({
+    ...notification,
+    isRead: false, // Add isRead property
+  }));
+
   return {
-    type: FETCH_NOTIFICATIONS_SUCCESS,
-    data,
-  }
-}
+    type: "FETCH_NOTIFICATIONS_SUCCESS",
+    data: notificationsWithIsRead,
+  };
+};
 
 // Bound action creator for fetch notifications success
 export const boundFetchNotificationsSuccess = (data) => (dispatch) =>
