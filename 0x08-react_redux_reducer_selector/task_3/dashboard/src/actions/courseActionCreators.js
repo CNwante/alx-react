@@ -25,9 +25,14 @@ export const boundUnSelectCourse = (index) => (dispatch) =>
   dispatch(unSelectCourse(index));
 
 export function fetchCourseSuccess(data) {
+  const coursesWithIsSelected = data.map((course) => ({
+    ...course,
+    isSelected: false,
+  }));
+
   return {
     type: FETCH_COURSE_SUCCESS,
-    data,
+    data: coursesWithIsSelected,
   };
 }
 
