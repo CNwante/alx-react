@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
 import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
@@ -85,6 +86,8 @@ class App extends Component {
   render() {
     const { displayDrawer, user, logOut, listNotifications } = this.state;
 
+    const { isLoggedIn } = this.props;
+
     return (
       <AppContext.Provider value={{ user, logOut }}>
         <div className={css(styles.app)} data-testid="App">
@@ -98,7 +101,7 @@ class App extends Component {
             />
             <Header />
           </div>
-          {user.isLoggedIn ? (
+          {isLoggedIn ? (
             <BodySectionWithMarginBottom title="Course list">
               <CourseList listCourses={listCourses} />
             </BodySectionWithMarginBottom>
@@ -133,4 +136,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+// export default App;
+
+export const mapStateToProps = (state) => {
+  return { isLoggedIn: state.get("isUserLoggedIn") };
+};
+
+export default connect(mapStateToProps)(App);
