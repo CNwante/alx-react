@@ -1,16 +1,29 @@
-import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { Provider } from "react-redux";
+import { fireEvent, render, screen } from "@testing-library/react";
+import App from "./App";
+import { createStore } from "redux";
+import { uiReducer } from "../reducers/uiReducer";
 
-describe('App component', () => {
-  test('renders without crashing', () => {
-    render(<App />);
-    const divAppElement = screen.getByTestId('App');
+const store = createStore(uiReducer);
+
+describe("App component", () => {
+  test("renders without crashing", () => {
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+    const divAppElement = screen.getByTestId("App");
     expect(divAppElement).toBeInTheDocument();
   });
 
   test("contains the Notifications component after clicking 'Your notifications'", () => {
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
 
     // Initially, Notifications is not rendered
     let notifications = screen.queryByTestId("Notifications");
@@ -26,13 +39,21 @@ describe('App component', () => {
   });
 
   test("default state of displayDrawer is false", () => {
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
     const notifications = screen.queryByTestId("Notifications");
     expect(notifications).toBeNull();
   });
 
   test("handleDisplayDrawer sets displayDrawer to true", () => {
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
     const menuItem = screen.getByText("Your notifications");
     fireEvent.click(menuItem);
     const notifications = screen.getByTestId("Notifications");
@@ -40,7 +61,11 @@ describe('App component', () => {
   });
 
   test("handleHideDrawer sets displayDrawer to false", () => {
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
     const menuItem = screen.getByText("Your notifications");
     fireEvent.click(menuItem); // Opens the drawer
     const closeButton = screen.getByRole("button", { name: "Close" });
@@ -49,39 +74,55 @@ describe('App component', () => {
     expect(notifications).toBeNull();
   });
 
-  test('contains the Header component with the correct title', () => {
-    render(<App />);
+  test("contains the Header component with the correct title", () => {
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
 
     // Find the main header by using getAllByRole and then filtering
-    const headings = screen.getAllByRole('heading');
+    const headings = screen.getAllByRole("heading");
 
     // Check if the main header with text 'School dashboard' exists
-    const mainHeader = headings.find((heading) =>
-      heading.textContent === 'School dashboard'
+    const mainHeader = headings.find(
+      (heading) => heading.textContent === "School dashboard"
     );
     expect(mainHeader).toBeInTheDocument();
   });
 
-  test('renders the BodySectionWithMarginBottom components correctly', () => {
-    render(<App />);
+  test("renders the BodySectionWithMarginBottom components correctly", () => {
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
 
     // Check for specific headings introduced by BodySectionWithMarginBottom
-    expect(screen.getByText('Log in to continue')).toBeInTheDocument();
-    expect(screen.getByText('News from the School')).toBeInTheDocument();
+    expect(screen.getByText("Log in to continue")).toBeInTheDocument();
+    expect(screen.getByText("News from the School")).toBeInTheDocument();
   });
 
-  test('contains the Footer component', () => {
-    render(<App />);
-    const footer = screen.getByRole('contentinfo');
+  test("contains the Footer component", () => {
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+    const footer = screen.getByRole("contentinfo");
     expect(footer).toBeInTheDocument();
   });
 
-  describe('when isLoggedIn is false', () => {
-    test('renders the Login component and not CourseList', () => {
-      render(<App isLoggedIn={false} />);
-      const login = screen.getByTestId('Login');
+  describe("when isLoggedIn is false", () => {
+    test("renders the Login component and not CourseList", () => {
+      render(
+        <Provider store={store}>
+          <App isLoggedIn={false} />
+        </Provider>
+      );
+      const login = screen.getByTestId("Login");
       expect(login).toBeInTheDocument();
-      expect(screen.queryByTestId('CourseList')).not.toBeInTheDocument();
+      expect(screen.queryByTestId("CourseList")).not.toBeInTheDocument();
     });
   });
 
