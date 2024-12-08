@@ -1,7 +1,8 @@
 import React from "react";
 import { Provider } from "react-redux";
+import { fromJS } from "immutable";
 import { fireEvent, render, screen } from "@testing-library/react";
-import App from "./App";
+import App, { mapStateToProps } from "./App";
 import { createStore } from "redux";
 import { uiReducer } from "../reducers/uiReducer";
 
@@ -125,6 +126,18 @@ describe("App component", () => {
       expect(screen.queryByTestId("CourseList")).not.toBeInTheDocument();
     });
   });
+
+  describe("Test MapStateToProps", () => {
+    test("returns the right object", () => {
+      const state = fromJS({
+        isUserLoggedIn: true
+      });
+
+      const  expectedState = { isLoggedIn: true };
+      const result = mapStateToProps(state);
+      expect(result).toEqual(expectedState)
+    })
+  })
 
   /*
     describe('when isLoggedIn is true', () => {
