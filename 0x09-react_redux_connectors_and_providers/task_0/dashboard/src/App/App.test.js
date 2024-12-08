@@ -135,9 +135,9 @@ describe("App component", () => {
 
       const  expectedState = { isLoggedIn: true };
       const result = mapStateToProps(state);
-      expect(result).toEqual(expectedState)
-    })
-  })
+      expect(result).toEqual(expectedState);
+    });
+  });
 
   /*
     describe('when isLoggedIn is true', () => {
