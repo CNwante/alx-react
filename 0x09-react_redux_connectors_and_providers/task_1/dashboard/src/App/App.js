@@ -32,8 +32,6 @@ class App extends Component {
         { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
       ],
     };
-    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-    this.handleHideDrawer = this.handleHideDrawer.bind(this);
   }
 
   logIn = (email, password) => {
@@ -60,14 +58,6 @@ class App extends Component {
       ),
     }));
   };
-
-  handleDisplayDrawer() {
-    this.setState({ displayDrawer: true });
-  }
-
-  handleHideDrawer() {
-    this.setState({ displayDrawer: false });
-  }
 
   handleKeyDown = (event) => {
     if (event.ctrlKey && event.key === "h") {
