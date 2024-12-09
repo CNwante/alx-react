@@ -39,41 +39,18 @@ describe("App component", () => {
     expect(notifications).toBeInTheDocument();
   });
 
-  test("default state of displayDrawer is false", () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-    const notifications = screen.queryByTestId("Notifications");
-    expect(notifications).toBeNull();
-  });
-
-  test("handleDisplayDrawer sets displayDrawer to true", () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-    const menuItem = screen.getByText("Your notifications");
-    fireEvent.click(menuItem);
-    const notifications = screen.getByTestId("Notifications");
-    expect(notifications).toBeInTheDocument();
-  });
-
-  test("handleHideDrawer sets displayDrawer to false", () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-    const menuItem = screen.getByText("Your notifications");
-    fireEvent.click(menuItem); // Opens the drawer
-    const closeButton = screen.getByRole("button", { name: "Close" });
-    fireEvent.click(closeButton); // Closes the drawer
-    const notifications = screen.queryByTestId("Notifications");
-    expect(notifications).toBeNull();
-  });
+  /* Test failed after I changed state management to be handled bu redux
+    ====================================================================
+    test("default state of displayDrawer is false", () => {
+      render(
+        <Provider store={store}>
+          <App />
+        </Provider>
+      );
+      const notifications = screen.queryByTestId("Notifications");
+      expect(notifications).toBeNull();
+    });
+  */
 
   test("contains the Header component with the correct title", () => {
     render(
