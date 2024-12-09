@@ -10,6 +10,7 @@ import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import { getLatestNotification } from "../utils/utils";
 import { AppContext, defaultUser } from "./AppContext";
+import { displayNotificationDrawer, hideNotificationDrawer } from "../actions/uiActions";
 
 const listCourses = [
   { id: 1, name: "ES6", credit: 60 },
@@ -95,8 +96,8 @@ class App extends Component {
             <Notifications
               listNotifications={listNotifications} // Pass state listNotifications
               displayDrawer={displayDrawer}
-              handleDisplayDrawer={this.handleDisplayDrawer}
-              handleHideDrawer={this.handleHideDrawer}
+              handleDisplayDrawer={this.displayNotificationDrawer}
+              handleHideDrawer={this.hideNotificationDrawer}
               markNotificationAsRead={this.markNotificationAsRead} // Pass the function
             />
             <Header />
@@ -145,4 +146,9 @@ export const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export const mapDispatchToProps = {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
