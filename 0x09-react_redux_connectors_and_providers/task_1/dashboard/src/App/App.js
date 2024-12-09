@@ -84,11 +84,11 @@ class App extends Component {
         <div className={css(styles.app)} data-testid="App">
           <div className={css(styles.appContainer)}>
             <Notifications
-              listNotifications={listNotifications} // Pass state listNotifications
+              listNotifications={listNotifications}
               displayDrawer={displayDrawer}
-              handleDisplayDrawer={this.displayNotificationDrawer}
-              handleHideDrawer={this.hideNotificationDrawer}
-              markNotificationAsRead={this.markNotificationAsRead} // Pass the function
+              handleDisplayDrawer={this.props.displayNotificationDrawer}
+              handleHideDrawer={this.props.hideNotificationDrawer}
+              markNotificationAsRead={this.markNotificationAsRead}
             />
             <Header />
           </div>
