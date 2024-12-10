@@ -25,7 +25,6 @@ class App extends Component {
     this.state = {
       displayDrawer: false,
       user: defaultUser,
-      logOut: this.logOut,
       listNotifications: [
         // Add listNotifications to the state
         { id: 1, type: "default", value: "New course available" },
@@ -44,28 +43,13 @@ class App extends Component {
     }));
   };
 
-  handleKeyDown = (event) => {
-    if (event.ctrlKey && event.key === "h") {
-      alert("Logging you out");
-      this.state.logOut();
-    }
-  };
-
-  componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyDown);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyDown);
-  }
-
   render() {
-    const { user, logOut, listNotifications } = this.state;
+    const { user, listNotifications } = this.state;
 
     const { isLoggedIn, displayDrawer, login } = this.props;
 
     return (
-      <AppContext.Provider value={{ user, logOut }}>
+      <AppContext.Provider value={{ user }}>
         <div className={css(styles.app)} data-testid="App">
           <div className={css(styles.appContainer)}>
             <Notifications
