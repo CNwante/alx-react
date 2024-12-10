@@ -1,17 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Login from "../Login/Login";
 import CourseList from "../CourseList/CourseList";
-import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
+import BodySection from "../BodySection/BodySection";
 import { getLatestNotification } from "../utils/utils";
 import { AppContext, defaultUser } from "./AppContext";
-import { displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } from "../actions/uiActionCreators";
+import {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
+  loginRequest,
+  logout,
+} from "../actions/uiActionCreators";
 
 const listCourses = [
   { id: 1, name: "ES6", credit: 60 },
@@ -26,7 +31,6 @@ class App extends Component {
       displayDrawer: false,
       user: defaultUser,
       listNotifications: [
-        // Add listNotifications to the state
         { id: 1, type: "default", value: "New course available" },
         { id: 2, type: "urgent", value: "New resume available" },
         { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
@@ -34,7 +38,6 @@ class App extends Component {
     };
   }
 
-  // New method to remove a notification by id
   markNotificationAsRead = (id) => {
     this.setState((prevState) => ({
       listNotifications: prevState.listNotifications.filter(
@@ -45,7 +48,6 @@ class App extends Component {
 
   render() {
     const { user, listNotifications } = this.state;
-
     const { isLoggedIn, displayDrawer, login } = this.props;
 
     return (
@@ -112,18 +114,16 @@ App.defaultProps = {
   login: () => {},
 };
 
-export const mapStateToProps = (state) => {
-  return {
-    isLoggedIn: state.get("isUserLoggedIn"),
-    displayDrawer: state.get("isNotificationDrawerVisible"),
-  };
-};
+export const mapStateToProps = (state) => ({
+  isLoggedIn: state.get("isUserLoggedIn"),
+  displayDrawer: state.get("isNotificationDrawerVisible"),
+});
 
 export const mapDispatchToProps = {
   displayNotificationDrawer,
   hideNotificationDrawer,
   login: loginRequest,
   logout,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
