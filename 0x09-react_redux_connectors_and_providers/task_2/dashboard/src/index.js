@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { thunk } from "redux-thunk";
 import App from './App/App';
 import { uiReducer } from './reducers/uiReducer';
 import reportWebVitals from './reportWebVitals';
 
 // Create the Redux store with the uiReducer
-const store = createStore(uiReducer);
+const store = createStore(uiReducer, applyMiddleware(thunk));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
