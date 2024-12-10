@@ -11,7 +11,7 @@ import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import { getLatestNotification } from "../utils/utils";
 import { AppContext, defaultUser } from "./AppContext";
-import { displayNotificationDrawer, hideNotificationDrawer } from "../actions/uiActionCreators";
+import { displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } from "../actions/uiActionCreators";
 
 const listCourses = [
   { id: 1, name: "ES6", credit: 60 },
@@ -34,22 +34,6 @@ class App extends Component {
       ],
     };
   }
-
-  logIn = (email, password) => {
-    this.setState({
-      user: {
-        email,
-        password,
-        isLoggedIn: true,
-      },
-    });
-  };
-
-  logOut = () => {
-    this.setState({
-      user: defaultUser,
-    });
-  };
 
   // New method to remove a notification by id
   markNotificationAsRead = (id) => {
@@ -78,7 +62,7 @@ class App extends Component {
   render() {
     const { user, logOut, listNotifications } = this.state;
 
-    const { isLoggedIn, displayDrawer } = this.props;
+    const { isLoggedIn, displayDrawer, login } = this.props;
 
     return (
       <AppContext.Provider value={{ user, logOut }}>
@@ -99,7 +83,7 @@ class App extends Component {
             </BodySectionWithMarginBottom>
           ) : (
             <BodySectionWithMarginBottom title="Log in to continue">
-              <Login logIn={this.logIn} />
+              <Login logIn={login} />
             </BodySectionWithMarginBottom>
           )}
           <BodySection title="News from the School">
@@ -133,6 +117,7 @@ App.propTypes = {
   displayDrawer: PropTypes.bool,
   displayNotificationDrawer: PropTypes.func,
   hideNotificationDrawer: PropTypes.func,
+  login: PropTypes.func,
 };
 
 App.defaultProps = {
@@ -140,6 +125,7 @@ App.defaultProps = {
   displayDrawer: false,
   displayNotificationDrawer: () => {},
   hideNotificationDrawer: () => {},
+  login: () => {},
 };
 
 export const mapStateToProps = (state) => {
@@ -152,6 +138,8 @@ export const mapStateToProps = (state) => {
 export const mapDispatchToProps = {
   displayNotificationDrawer,
   hideNotificationDrawer,
+  login: loginRequest,
+  logout,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
