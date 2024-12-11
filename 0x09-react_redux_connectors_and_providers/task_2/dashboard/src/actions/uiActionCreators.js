@@ -10,7 +10,7 @@ export const login = (email, password) => {
 export const boundLogin = (email, password) => (dispatch) =>
   dispatch(login(email, password));
 
-export const loginSuccess = () => ({ type: uiActionTypes.LOGIN_SUCCESS });
+export const loginSuccess = (user) => ({ type: uiActionTypes.LOGIN_SUCCESS, user });
 export const loginFailure = () => ({ type: uiActionTypes.LOGIN_FAILURE });
 
 // Async action creator for login
@@ -18,15 +18,24 @@ export const loginRequest = (email, password) => {
   return (dispatch) => {
     boundLogin(email, password);
 
-    return fetch("/public/login-success.json")
+    return fetch("/login-success.json")
       .then((response) => {
-        if (!response.ok) throw new Error("API failure");
+        if (!response.ok) {
+          throw new Error("API failure");
+        }
         return response.json();
       })
-      .then((data) => dispatch(loginSuccess()))
-      .catch((error) => dispatch(loginFailure()));
+      .then((data) => {
+        const user = { email };
+        dispatch(loginSuccess(user));
+      })
+      .catch((error) => {
+        console.error("Error during login request:", error);
+        dispatch(loginFailure());
+      });
   };
 };
+
 
 export const logout = () => ({ type: uiActionTypes.LOGOUT });
 
