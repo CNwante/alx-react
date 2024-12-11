@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
 import logo from "../assets/holberton-logo.png";
-import { AppContext } from "../App/AppContext";
+import { logout } from "../actions/uiActionCreators";
 
 const styles = StyleSheet.create({
   header: {
@@ -28,22 +30,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const Header = () => {
-  // Use the context to access `user` and `logOut`
-  const { user, logOut } = useContext(AppContext);
-
+const Header = ({ user, logout }) => {
   return (
     <header className={css(styles.header)}>
       <img src={logo} className={css(styles.logo)} alt="holberton-logo" />
       <h1 className={css(styles.title)}>School dashboard</h1>
-      {/* Conditionally render the welcome section */}
-      {user.isLoggedIn && (
+      {user && (
         <div id="logoutSection" className={css(styles.logoutSection)}>
           Welcome {user.email} (
-          <span
-            className={css(styles.logoutLink)}
-            onClick={logOut} // Call logOut on click
-          >
+          <span className={css(styles.logoutLink)} onClick={logout}>
             logout
           </span>
           )
@@ -53,4 +48,13 @@ const Header = () => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  user: PropTypes.object,
+  logout: PropTypes.func,
+};
+
+export const mapStateToProps = (state) => ({
+  user: state.get("user"),
+});
+
+export default connect(mapStateToProps, { logout })(Header);
