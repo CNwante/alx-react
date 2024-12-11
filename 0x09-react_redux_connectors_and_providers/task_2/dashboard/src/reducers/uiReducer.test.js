@@ -30,19 +30,38 @@ describe("uiReducer", () => {
     expect(newState).toEqual(initialState.set("isNotificationDrawerVisible", false));
   });
 
-  it("should set isUserLoggedIn to true when LOGIN_SUCCESS is passed", () => {
-    const newState = uiReducer(initialState, { type: uiActions.LOGIN_SUCCESS });
-    expect(newState).toEqual(initialState.set("isUserLoggedIn", true));
+  it("should set isUserLoggedIn to true and update user when LOGIN_SUCCESS is passed", () => {
+    const user = { email: "test@example.com", name: "Test User" };
+    const newState = uiReducer(initialState, { type: uiActions.LOGIN_SUCCESS, user });
+    expect(newState).toEqual(
+      initialState.merge({
+        isUserLoggedIn: true,
+        user,
+      })
+    );
   });
 
-  it("should set isUserLoggedIn to false when LOGIN_FAILURE is passed", () => {
+  it("should set isUserLoggedIn to false and clear user when LOGIN_FAILURE is passed", () => {
     const newState = uiReducer(initialState, { type: uiActions.LOGIN_FAILURE });
-    expect(newState).toEqual(initialState.set("isUserLoggedIn", false));
+    expect(newState).toEqual(
+      initialState.merge({
+        isUserLoggedIn: false,
+        user: null,
+      })
+    );
   });
 
-  it("should set isUserLoggedIn to false when LOGOUT is passed", () => {
-    const prevState = initialState.set("isUserLoggedIn", true);
+  it("should set isUserLoggedIn to false and clear user when LOGOUT is passed", () => {
+    const prevState = initialState.merge({
+      isUserLoggedIn: true,
+      user: { email: "test@example.com", name: "Test User" },
+    });
     const newState = uiReducer(prevState, { type: uiActions.LOGOUT });
-    expect(newState).toEqual(initialState.set("isUserLoggedIn", false));
+    expect(newState).toEqual(
+      initialState.merge({
+        isUserLoggedIn: false,
+        user: null,
+      })
+    );
   });
 });
