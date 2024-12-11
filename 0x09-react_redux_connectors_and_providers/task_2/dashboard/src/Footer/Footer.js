@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite";
 import { getFullYear, getFooterCopy } from "../utils/utils";
-import { AppContext } from "../App/AppContext";
 
-const Footer = () => {
-  const { user } = useContext(AppContext); // Subscribe to context
-
+const Footer = ({ user = null }) => {
   return (
     <footer className={css(styles.appFooter)} role="contentinfo">
-      {user.isLoggedIn && ( // Conditional rendering for logged-in user
+      {user && (
         <p>
           <a href="#contact" className={css(styles.contactLink)}>
             Contact us
@@ -36,4 +35,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Footer;
+Footer.propTypes = {
+  user: PropTypes.object,
+};
+
+export const mapStateToProps = (state) => ({
+  user: state.get("user"),
+});
+
+export default connect(mapStateToProps)(Footer);
