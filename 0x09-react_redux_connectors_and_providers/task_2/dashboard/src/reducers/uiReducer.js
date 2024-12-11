@@ -4,29 +4,38 @@ import * as uiActions from "../actions/uiActionTypes";
 export const initialState = Map({
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
-  user: {},
+  user: null,
 });
 
-export const uiReducer = (state = initialState, actions) => {
-  switch (actions.type) {
+export const uiReducer = (state = initialState, action) => {
+  switch (action.type) {
     case uiActions.DISPLAY_NOTIFICATION_DRAWER: {
-      return state.set('isNotificationDrawerVisible', true);
+      return state.set("isNotificationDrawerVisible", true);
     }
 
     case uiActions.HIDE_NOTIFICATION_DRAWER: {
-      return state.set('isNotificationDrawerVisible', false);
+      return state.set("isNotificationDrawerVisible", false);
     }
 
     case uiActions.LOGIN_SUCCESS: {
-      return state.set('isUserLoggedIn', true);
+      return state.merge({
+        isUserLoggedIn: true,
+        user: action.user,
+      });
     }
 
     case uiActions.LOGIN_FAILURE: {
-      return state.set('isUserLoggedIn', false);
+      return state.merge({
+        isUserLoggedIn: false,
+        user: null,
+      });
     }
 
     case uiActions.LOGOUT: {
-      return state.set('isUserLoggedIn', false);
+      return state.merge({
+        isUserLoggedIn: false,
+        user: null,
+      });
     }
 
     default:
