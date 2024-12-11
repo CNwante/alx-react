@@ -24,17 +24,19 @@ const listCourses = [
   { id: 3, name: "React", credit: 40 },
 ];
 
+const notifications = [
+  { id: 1, type: "default", value: "New course available" },
+  { id: 2, type: "urgent", value: "New resume available" },
+  { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
+]
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       displayDrawer: false,
       user: defaultUser,
-      listNotifications: [
-        { id: 1, type: "default", value: "New course available" },
-        { id: 2, type: "urgent", value: "New resume available" },
-        { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
-      ],
+      listNotifications: notifications,
     };
   }
 
