@@ -1,9 +1,18 @@
 import Footer from "./Footer";
 import {render, screen} from '@testing-library/react';
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import { uiReducer } from "../reducers/uiReducer";
+
+const store = createStore(uiReducer);
 
 describe('Footer component', () => {
   beforeEach(() => {
-    render (<Footer />);
+    render (
+      <Provider store={store}>
+            <Footer />
+      </Provider>
+  );
   });
 
   test('renders element with the role contentinfo', () => {

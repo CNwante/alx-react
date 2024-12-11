@@ -1,10 +1,18 @@
 import Header from './Header';
 import {render, screen} from '@testing-library/react';
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import { uiReducer } from "../reducers/uiReducer";
 
+const store = createStore(uiReducer);
 
 describe('Header component', () => {
   beforeEach(() => {
-    render(<Header />);
+    render(
+      <Provider store={store}>
+        <Header />
+      </Provider>
+    );
   });
 
   test('renders a div with the class App-header', () => {
